@@ -18,6 +18,24 @@ struct Song{
 	
 	
 	
+};
+
+struct Node{
+	Song song;
+	Node* right;
+	Node* left;
+	int height;
+	Node(Song& ref){
+		this->song.title = ref.title;
+		
+		this->song.artist = ref.artist;
+		this->genre = ref.genre;
+		this->length = ref.length;
+		this->BPM = ref.BPM;
+		this->height =1;
+		this->right = nullptr;
+		this->left = nullptr;
+	}
 }
 
 
