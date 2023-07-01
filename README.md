@@ -6,9 +6,10 @@ this is kind of me (Ryan) just messing around, we might end up scrapping all of 
 to run on local host:
 
 1. make sure you have node.js installed and added to PATH
-2. in the terminal run "npm install" to install all the dependencies listed in the package.json file
-3. run "npm run go" to start the server. Then go to your browser and navigate to http://localhost:2000
-4. you can now see the webpage, and every time you save changes to the server code locally it will restart and update your webpage automatically
+2. do the "git pull" thing, cody knows more about that than me
+3. in the terminal run "npm install" to install all the dependencies listed in the package.json file
+4. run "npm run go" to start the server. Then go to your browser and navigate to http://localhost:2000
+5. you can now see the webpage, and every time you save changes to the server code locally it will restart and update your webpage automatically
 
 - the "dashboard.ejs" file is where you can edit the webpage. EJS stands for "embedded JavaScript", and an EJS file is just a regular HTML file that you can put javascript code into pretty easily. The main reason I use it is because it makes it easy to input data from the server (i.e. the song data we get from the spotify API) into the HTML page, but we can change this later if needed.
 
