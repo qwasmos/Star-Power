@@ -1,0 +1,10 @@
+
+body {
+    background: rgb(69, 69, 69);
+    color: white;
+    font-family: Arial;
+    font-size: 15pt;
+}
+.title {
+    text-align: center;
+}
