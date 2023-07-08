@@ -50,6 +50,7 @@ struct HashTable{
 		int index = Hash(ref.title);
 		if(songs[index]==nullptr){
 			songs[index] = new Song(ref.title, ref.artist, ref.genre, ref.length, ref.BPM);
+			size++;
 			return;
 		}
 		
@@ -63,7 +64,7 @@ struct HashTable{
 			return;
 		}
 		
-		std::cout<<ref<<" is here"<<std::endl;
+		std::cout<<ref<<" is here and the artist is "<<songs[index]->artist<<std::endl;
 	}
 	
 	
@@ -82,5 +83,12 @@ int main(){
 	ht.Insert(song);
 	ht.Search("bacon and eggs");
 	ht.Search("Single Ladies");
+	ht.Insert(song);
+	Song bacon("Bacon","Cody","EDM",222,555);
+	ht.Insert(bacon);
+	std::cout<<"The size of the hash table is "<<ht.getSize()<<std::endl;
+	
+	ht.Search("Bacon");
+	ht.Search("Single Ladies");;
 
 }
