@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "Song.cpp"
+#include "Graph.cpp"
 using namespace std;
 
 // separate out the data row and get rid of commas
@@ -42,7 +43,7 @@ void processRow(vector<string>& row, string line){
 			row.push_back(cell);
 		}
 }
-void addSong(vector<string>& row, string line){
+Song* createSong(vector<string>& row, string& line){
 	processRow(row, line);
 	// create a song object with the data from the row
 	float valence = stof(row[0]);
@@ -65,6 +66,5 @@ void addSong(vector<string>& row, string line){
     int popularity = stoi(row[13]);
     float tempo = stof(row[14]);
 	Song* song = new Song(valence, year, acousticness, artists, danceability, duration_ms, energy, explicit_, id, instrumentalness, liveness, loudness, name, popularity, tempo);
-	// add the song to the graph below
-
+	return song;
 }
