@@ -18,10 +18,10 @@ class Song {
     float instrumentalness;
     float liveness;
     float loudness;
-    string name;
     int popularity;
     float tempo;
     public:
+    string name;
     Song(float _valence, int _year, float _acousticness, vector<string> _artists, float _danceability, int _duration_ms, float _energy, bool _explicit_, string _id, float _instrumentalness,
      float _liveness, float _loudness, string _name, int _popularity, float _tempo){
         valence = _valence;
@@ -39,6 +39,9 @@ class Song {
         name = _name;
         popularity = _popularity;
         tempo = _tempo;
+    }
+    string getName(){
+        return name;
     }
     bool isSimilar(const Song& other){
         // work in progress

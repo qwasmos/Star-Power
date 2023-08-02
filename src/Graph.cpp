@@ -1,9 +1,10 @@
 #include <unordered_map>
 #include <vector>
 #include "Song.cpp"
+#include "Hash.cpp"
 
 class Graph {
-    unordered_map<Song, vector<Song>> adjList; // this is broken, need to create our own hash map and hash function for Songs
+    unordered_map<Song, vector<Song>, Hash> adjList; // this is broken, need to create our own hash map and hash function for Songs
     public:
     void addEdge(Song song1, Song song2){       // gets called when the similarity threshold is met
         if (adjList.find(song1) == adjList.end()) adjList[song1] = vector<Song>();
@@ -15,7 +16,10 @@ class Graph {
         if (adjList.find(song) == adjList.end()) adjList[song] = vector<Song>();
         else return;                             // if the song is already in the graph, do nothing
         for (auto& [key, value] : adjList) {
-            if (song.isSimilar(key)) addEdge(song, key);
+            if (song.isSimilar(key)) {
+                addEdge(song, key);
+                cout << "Added edge between " << song.name << " and " << key.name << endl;
+            }
         }
     }
 
