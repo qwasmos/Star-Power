@@ -40,8 +40,8 @@ class Song {
         popularity = _popularity;
         tempo = _tempo;
     }
-    string getName(){
-        return name;
+    string getID(){
+        return id;
     }
     bool isSimilar(const Song& other){
         // work in progress
@@ -56,5 +56,8 @@ class Song {
         similarity /= 9;    // 9 attributes taken into account, so divide by 9 to get average
         cout << similarity << endl; // for testing purposes
         return similarity > .5;
+    }
+    bool operator==(const Song& other){
+        return id == other.id;
     }
 };

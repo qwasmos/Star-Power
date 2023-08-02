@@ -3,8 +3,8 @@
 #include <string>
 #include <functional>
 using namespace std;
-
-class Hash {
+template <>
+struct hash<Song> {
 public: size_t operator() (const Song& song) const {
     return hash<string>()(song.name);
     }

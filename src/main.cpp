@@ -14,11 +14,10 @@ int main(){
 	string line, cell, temp;
 	getline(file, temp); // get rid of first line (column names)
 	int x = 10;	// number of songs to add to graph (only testing with 100 songs right now)
-	while (x > 0) {
+	while (x-- > 0) {
 		getline(file,line);
 		row.clear();
 		Song* song = createSong(row, line);
 		graph.addSong(*song);
-		x--;
 	}
 }
