@@ -18,4 +18,11 @@ class Graph {
             if (song.isSimilar(key)) addEdge(song, key);
         }
     }
+
+    void BFS(std::unordered_map<int,std::vector<Song>>& adjList){
+
+    }
+    void DFS(std::unordered_map<int,std::vector<Song>>& adjList){
+        
+    }
 };

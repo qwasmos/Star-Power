@@ -54,4 +54,5 @@ class Song {
         cout << similarity << endl; // for testing purposes
         return similarity > .5;
     }
+    
 };
