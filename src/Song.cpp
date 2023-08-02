@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <iostream>
 #pragma once
 using namespace std;
 
@@ -39,15 +40,18 @@ class Song {
         popularity = _popularity;
         tempo = _tempo;
     }
-    bool areSimilar(Song other){
+    bool isSimilar(const Song& other){
         // work in progress
         // decide on which attributes are important, how to come up with a similarity score, and what the threshold for similarity is
         int similarity = 0;
-
-        int diff = abs(valence - other.valence);
-        (diff < .15) ? similarity += pow(1 - diff, 2) : similarity += 0; // if they are within .15 of each other, add the square of 1 - diff to similarity
-        diff = abs(acousticness - other.acousticness);
-        (diff < .15) ? similarity += pow(1 - diff, 2) : similarity += 0;
-        return similarity > 1.5;
+        
+        // went with the exponential function 25^(-|x-y|) for each attribute. This gives a value between 0 and 1, with 1 being the most similar. All attributes are weighted equally for now.
+        similarity += pow(25, - abs(valence - other.valence));
+        similarity += pow(25, ((max(year, other.year) - min(year, other.year)) / 55));
+        similarity += pow(25, abs(danceability - other.danceability)) + pow(25, abs(energy - other.energy)) + pow(25, abs(instrumentalness - other.instrumentalness))
+         + pow(25, abs(liveness - other.liveness)) + pow(25, abs(loudness - other.loudness)) + pow(25, abs(tempo - other.tempo)) + pow(25, abs(acousticness - other.acousticness));
+        similarity /= 9;    // 9 attributes taken into account, so divide by 9 to get average
+        cout << similarity << endl; // for testing purposes
+        return similarity > .5;
     }
 };
