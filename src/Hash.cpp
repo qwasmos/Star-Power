@@ -1,4 +1,4 @@
-
+#pragma once
 #include "Song.cpp"
 #include <string>
 #include <functional>

@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include <vector>
 #include <cmath>
@@ -57,5 +58,5 @@ class Song {
         cout << similarity << endl; // for testing purposes
         return similarity > .5;
     }
-    
+
 };
