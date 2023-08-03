@@ -5,6 +5,7 @@
 #include <set>
 #include <stack>
 #include <queue>
+#include <iostream>
 class Graph{
     std::unordered_map<Song*, std::vector<Song*>> adjList;
     public:
@@ -12,5 +13,6 @@ class Graph{
     void addEdge(Song* song1, Song* song2);
 
     void addSong(Song* song);
+    void printMap();
 
 };

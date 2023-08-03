@@ -22,6 +22,12 @@
         }
     }
 
+    void Graph::printMap(){
+        for(auto iter = adjList.begin();iter!=adjList.end();iter++){
+            std::cout<<iter->first->getName()<<std::endl;
+        }
+    }
+
 
 
 
