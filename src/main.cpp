@@ -2,8 +2,10 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "Song.cpp"
-#include "processData.cpp"
+#include "Song.h"
+#include "processData.h"
+#include "Graph.h"
+#include "Hash.h"
 
 using namespace std;
 int main(){

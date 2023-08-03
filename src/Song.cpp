@@ -1,32 +1,14 @@
-#pragma once
+#include "Song.h"
 #include <string>
 #include <vector>
 #include <cmath>
 #include <iostream>
-#pragma once
-using namespace std;
 
-class Song {
-    float valence;
-    int year;
-    float acousticness;
-    vector<string> artists;
-    float danceability;
-    int duration_ms;
-    float energy;
-    bool explicit_;
-    string id;
-    float instrumentalness;
-    float liveness;
-    string name;
-    float loudness;
-    int popularity;
-    float tempo;
 
-    public:
+    using namespace std;
 
-    Song(float _valence, int _year, float _acousticness, vector<string> _artists, float _danceability, int _duration_ms, float _energy, bool _explicit_, string _id, float _instrumentalness,
-     float _liveness, float _loudness, string _name, int _popularity, float _tempo){
+    Song::Song(float _valence, int _year, float _acousticness, std::vector<std::string> _artists, float _danceability, int _duration_ms, float _energy, bool _explicit_, std::string _id, float _instrumentalness,
+     float _liveness, float _loudness, std::string _name, int _popularity, float _tempo){
         valence = _valence;
         year = _year;
         acousticness = _acousticness;
@@ -43,22 +25,22 @@ class Song {
         popularity = _popularity;
         tempo = _tempo;
     }
-    string getName(){
+    std::string Song::getName() const{
         return name;
     }
-    bool isSimilar(Song* other){
+    bool Song:: isSimilar(Song* other){
         // decide on which attributes are important, how to come up with a similarity score, and what the threshold for similarity is
 
         double similarity = 0;
         // went with the exponential function 25^(-|x-y|) for each attribute. This gives a value between 0 and 1, with 1 being the most similar. All attributes are weighted equally for now.
-        similarity += pow(25, -abs(valence - other->valence));
-        similarity += pow(25, -abs(year - other->year) / 55); // 55 is the range of years in the dataset
+        similarity += std::pow(25, -abs(valence - other->valence));
+        similarity += std::pow(25, -abs(year - other->year) / 55); // 55 is the range of years in the dataset
         similarity += pow(25, -abs(danceability - other->danceability));
         similarity += pow(25, -abs(energy - other->energy));
         similarity += explicit_ == other->explicit_ ? .5 : 0; // weighted at 0.5x
         similarity += pow(25, -abs(instrumentalness - other->instrumentalness));
         similarity += pow(25, -abs(liveness - other->liveness));
-        double  higherLoudness = max(abs(loudness), abs(other->loudness));
+        double  higherLoudness = std::max(abs(loudness), abs(other->loudness));
         similarity += pow(25, -abs(loudness - other->loudness)/higherLoudness);    // divide by the higher loudness to normalize to a value between 0 and 1
         similarity += pow(25, -abs(tempo - other->tempo)/243)*1.5;   // 243 is the range of tempos in the dataset. tempo attribute is weighted at 1.5x
         similarity += pow(25, -abs(acousticness - other->acousticness));
@@ -67,4 +49,3 @@ class Song {
         return similarity > .75;
     }
 
-};

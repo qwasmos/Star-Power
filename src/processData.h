@@ -5,11 +5,10 @@
 #include <algorithm>
 #include <vector>
 #include <string>
-#include "Song.cpp"
-#include "Graph.cpp"
+#include "Song.h"
+#include "Graph.h"
+#include "processData.h"
 using namespace std;
-
-// separate out the data row and get rid of commas
 void processRow(vector<string>& row, string line){
 	stringstream s(line);
 	string temp;

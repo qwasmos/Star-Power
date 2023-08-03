@@ -1,34 +1,31 @@
-#pragma once
-#include <unordered_map>
-#include <vector>
-#include <set>
-#include <stack>
-#include <queue>
-#include "Song.cpp"
 
-class Graph
-{
-    unordered_map<Song*, vector<Song*>> adjList;
-public:
-    void addEdge(Song* song1, Song* song2)
+#include "Graph.h"
+
+
+    
+    void Graph:: addEdge(Song* song1, Song* song2)
     { // gets called when the similarity threshold is met
         if (adjList.find(song1) == adjList.end())
-            adjList[song1] = vector<Song*>();
+            adjList[song1] = std::vector<Song*>();
         if (adjList.find(song2) == adjList.end())
-            adjList[song2] = vector<Song*>();
+            adjList[song2] = std::vector<Song*>();
         adjList[song1].push_back(song2);
         adjList[song2].push_back(song1);
     }
-    void addSong(Song& song){                    // gets called when a song is added to the graph
-        if (adjList.find(song) == adjList.end()) adjList[song] = vector<Song>();
+    void Graph:: addSong(Song* song){                    // gets called when a song is added to the graph
+        if (adjList.find(song) == adjList.end()) adjList[song] = std::vector<Song*>();
         else return;                             // if the song is already in the graph, do nothing
         for (auto& [key, value] : adjList) {
-            if (song.isSimilar(key)) {
+            if (song->isSimilar(key)) {
                 addEdge(song, key);
             }
         }
     }
 
+
+
+
+    /*
     void BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList)
     {
 
@@ -79,4 +76,8 @@ public:
             }
         }
     }
-};
+
+    */
+
+
+

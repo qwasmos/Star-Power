@@ -1,11 +1,9 @@
-#pragma once
-#include "Song.cpp"
+#include "Hash.h"
+#include "Song.h"
 #include <string>
 #include <functional>
 using namespace std;
 
-class Hash {
-public: size_t operator() (const Song& song) const {
-    return hash<string>()(song.name);
+ size_t Hash:: operator() (const Song& song) const{
+    return hash<string>()(song.getName());
     }
-};
