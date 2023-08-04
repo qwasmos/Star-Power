@@ -39,21 +39,21 @@ int main(){
     cout << "Please enter the corresponding menu option (number) based on what you are looking for: " << endl;
     cin >> option;
 	if (option == 1) {
-		/*
+		
 		string songName;
 		cout << "Please enter the name of a song you like: " << endl;
-		getline(cin, songName);
-		Song* song = graph.findSong(songName);
+		cin >> songName;
+		Song* song = graph.BFS(graph.adjList, songName); 
 		if (song == nullptr) {
 			cout << "Sorry, we couldn't find that song." << endl;
 		} else {
 			cout << "Here are some songs you might like: " << endl;
-			vector<Song*> similarSongs = graph.getSimilarSongs(song);
+			vector<Song*> similarSongs = graph.adjList[song];
 			for (Song* song : similarSongs) {
 				cout << song->getName() << endl;
 			}
 		}
-		*/
+		
 	} else if (option == 2) {
 		/*
 		string artistName;
