@@ -26,6 +26,7 @@ class Song {
      float _liveness, float _loudness, std::string _name, int _popularity, float _tempo);
 
     std::string getName() const;
+    std::vector<std::string> getArtist() const;
 
     bool isSimilar(Song* other);
 
