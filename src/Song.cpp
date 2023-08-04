@@ -28,6 +28,11 @@
     std::string Song::getName() const{
         return name;
     }
+
+    std::vector<std::string> Song::getArtist() const{
+        return artists;
+    }
+
     bool Song:: isSimilar(Song* other){
         // decide on which attributes are important, how to come up with a similarity score, and what the threshold for similarity is
 

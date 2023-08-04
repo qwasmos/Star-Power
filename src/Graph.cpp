@@ -41,11 +41,18 @@
             Song* s = q.front();
             // std::cout << s->getName(); // probably dont need to print this
             q.pop();
-            std::vector<Song*> neighbors = adjList[iter->first];
+            std::vector<Song*> neighbors = adjList[s];
+
+            if (s->getName() == songName) {
+                return s;
+            }
+            
             for (auto v : neighbors)
             {
-                if (visited.count(v) == 0)
+
+                if (visited.count(v) == 0) // if it has not been visited
                 {
+
                     if (v->getName() == songName) { // if name matches
                         return v;
                     }
@@ -53,6 +60,9 @@
                     q.push(v);
                 }
             }
+
+            // if it has no neighbors access another node
+
         }
 
         return nullptr; // if not found

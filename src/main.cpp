@@ -42,15 +42,23 @@ int main(){
 		
 		string songName;
 		cout << "Please enter the name of a song you like: " << endl;
-		cin >> songName;
+		std::getline(std::cin, songName);
+		std::getline(std::cin, songName);
 		Song* song = graph.BFS(graph.adjList, songName); 
 		if (song == nullptr) {
 			cout << "Sorry, we couldn't find that song." << endl;
 		} else {
 			cout << "Here are some songs you might like: " << endl;
-			vector<Song*> similarSongs = graph.adjList[song];
+			vector<Song*> similarSongs;
+			for(int i = 0; i < 5; i++) { // only adds 5 similar songs (also might need to check if the song even has 5 similar songs)
+				similarSongs.push_back(graph.adjList[song][i]);
+			}
 			for (Song* song : similarSongs) {
-				cout << song->getName() << endl;
+				cout << "- " << song->getName() << " By: ";
+				for(int i = 0; i < song->getArtist().size(); i++) {
+					cout << song->getArtist()[i] << " ";
+				}
+				cout << endl;
 			}
 		}
 		
