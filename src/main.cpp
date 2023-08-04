@@ -20,6 +20,7 @@ int main(){
 		Song* song = createSong(row, line);	// create a song object with the data from the row
 		graph.addSong(song); 
 	}
+	graph.printMap();
 	cout << "~~~~~~~~~~~~~~~~ Welcome to Synth Sync ~~~~~~~~~~~~~~~~" << endl;
     cout << endl;
 

@@ -26,28 +26,30 @@
         for(auto iter = adjList.begin();iter!=adjList.end();iter++){
             std::cout<<iter->first->getName()<<std::endl;
         }
+        std::cout<<adjList.size()<<std::endl;
     }
 
 
 
 
-    /*
+    
     void BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList)
     {
 
-        string source = "A";
-        std::set<string> visited;
-        std::queue<string> q;
-        visited.insert(source);
-        q.push(source);
-        cout << "BFS: ";
+        std::string source = "A";
+        std::set<Song*> visited;
+        std::queue<Song*> q;
+        auto iter = adjList.begin();
+        visited.insert(iter->first);
+        q.push(iter->first);
+        std::cout << "BFS: ";
         while (!q.empty())
         {
-            string u = q.front();
-            cout << u;
+            Song* s = q.front();
+            std::cout << s->getName();
             q.pop();
-            vector<string> neighbors = graph[u];
-            for (string v : neighbors)
+            std::vector<Song*> neighbors = adjList[iter->first];
+            for (auto v : neighbors)
             {
                 if (visited.count(v) == 0)
                 {
@@ -57,22 +59,25 @@
             }
         }
     }
+
+
     void DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList)
     {
 
-        string source = "A";
-        std::set<string> visited;
-        std::stack<string> q;
-        visited.insert(source);
-        q.push(source);
-        cout << "BFS: ";
+        std::string source = "A";
+        std::set<Song*> visited;
+        std::stack<Song*> q;
+        auto iter = adjList.begin();
+        visited.insert(iter->first);
+        q.push(iter->first);
+        std::cout << "BFS: ";
         while (!q.empty())
         {
-            string u = q.front();
-            cout << u;
+            Song* u = q.top();
+            std::cout << u->getName();
             q.pop();
-            vector<string> neighbors = graph[u];
-            for (string v : neighbors)
+            std::vector<Song*> neighbors = adjList[u];
+            for (auto v : neighbors)
             {
                 if (visited.count(v) == 0)
                 {
@@ -83,7 +88,7 @@
         }
     }
 
-    */
+    
 
 
 
