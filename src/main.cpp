@@ -11,14 +11,15 @@ using namespace std;
 int main(){
 	Graph graph;
 	fstream file;
-	file.open("../input/refinedData.csv", ios::in);
+	file.open("input/refinedData.csv", ios::in);
 	vector<string> row;
 	string line, cell, temp;
 	getline(file, temp); // get rid of first line (column names)
-	while (getline(file,line)) {
+	for(int i =0; i < 10000;i++){
+		getline(file,line);
 		row.clear();
-		Song* song = createSong(row, line);	// create a song object with the data from the row
-		graph.addSong(song); 
+		Song* song = createSong(row,line);
+		graph.addSong(song);
 	}
 	graph.printMap();
 	cout << "~~~~~~~~~~~~~~~~ Welcome to Synth Sync ~~~~~~~~~~~~~~~~" << endl;
