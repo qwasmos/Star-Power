@@ -32,7 +32,7 @@
 
 
     
-    void BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList)
+    void Graph:: BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList,std::string name)
     {
 
         std::string source = "A";
@@ -60,7 +60,7 @@
     }
 
 
-    void DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList)
+    void Graph:: DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string name)
     {
 
         std::string source = "A";
