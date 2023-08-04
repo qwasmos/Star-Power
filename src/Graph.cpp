@@ -1,6 +1,5 @@
 #include "Graph.h"
 
-
     
     void Graph:: addEdge(Song* song1, Song* song2)
     { // gets called when the similarity threshold is met
@@ -27,15 +26,10 @@
         }
         std::cout<<adjList.size()<<std::endl;
     }
-
-
-
-
     
-    void BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList)
+    Song* Graph::BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName) // if this returns a pointer to a song
     {
 
-        std::string source = "A";
         std::set<Song*> visited;
         std::queue<Song*> q;
         auto iter = adjList.begin();
@@ -45,22 +39,28 @@
         while (!q.empty())
         {
             Song* s = q.front();
-            std::cout << s->getName();
+            // std::cout << s->getName(); // probably dont need to print this
             q.pop();
             std::vector<Song*> neighbors = adjList[iter->first];
             for (auto v : neighbors)
             {
                 if (visited.count(v) == 0)
                 {
+                    if (v->getName() == songName) { // if name matches
+                        return v;
+                    }
                     visited.insert(v);
                     q.push(v);
                 }
             }
         }
+
+        return nullptr; // if not found
+
     }
 
 
-    void DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList)
+    void Graph::DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName)
     {
 
         std::string source = "A";
