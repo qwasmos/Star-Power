@@ -276,7 +276,6 @@
         {
             Song* u = q.top();
             if(u->getMood() == mood) { // if mood matches
-                std::cout << "current song mood: " << u->getMood() << " wanted mood: " << mood << std::endl; // TESTING PURPOSES
                 moodMatches.push_back(u);
             }
             if(moodMatches.size() >= 5) {
