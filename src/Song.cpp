@@ -33,6 +33,27 @@
         return artists;
     }
 
+    int Song::getMood() {
+        // 0 happyPoints is sad
+        // 3 happyPoints is happy
+        int happyPoints = 0;
+
+        if(valence > 0.6) {
+            happyPoints++;
+        }
+
+        if(energy > 0.6) {
+            happyPoints++;
+        }
+
+        if(tempo >= 155 && tempo <= 200) {
+            happyPoints++;
+        }
+
+        return happyPoints;
+
+    }
+
     bool Song:: isSimilar(Song* other){
         // decide on which attributes are important, how to come up with a similarity score, and what the threshold for similarity is
 

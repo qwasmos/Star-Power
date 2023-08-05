@@ -29,17 +29,15 @@
     
     Song* Graph::BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName) // if this returns a pointer to a song
     {
-
         std::set<Song*> visited;
         std::queue<Song*> q;
         auto iter = adjList.begin();
         visited.insert(iter->first);
         q.push(iter->first);
-        std::cout << "BFS: ";
+
         while (!q.empty())
         {
             Song* s = q.front();
-            // std::cout << s->getName(); // probably dont need to print this
             q.pop();
             std::vector<Song*> neighbors = adjList[s];
 
@@ -49,7 +47,6 @@
             
             for (auto v : neighbors)
             {
-
                 if (visited.count(v) == 0) // if it has not been visited
                 {
 
@@ -60,8 +57,6 @@
                     q.push(v);
                 }
             }
-
-            // if it has no neighbors access another node
 
         }
 
@@ -105,6 +100,8 @@
         }
         return nullptr;
     }
+
+
     // This is supposed to do a BFS search but checking if the song is of the same artist IT DOES NOT WORK, NEEDS TO BE FIXED!!
     Song* Graph::BFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist){
 
@@ -210,6 +207,43 @@ void Graph::getSongByArtist(std::unordered_map<Song*, std::vector<Song*>>& adjLi
     }
   }
 }
+
+    std::vector<Song*> Graph::BFSMood(std::unordered_map<Song*, std::vector<Song*>>& adjList, int mood) {
+        std::vector<Song*> moodMatches;
+        std::set<std::string> visited;
+        std::queue<Song*> q;
+        auto iter = adjList.begin();
+        visited.insert(iter->first->getName());
+        q.push(iter->first);
+        while (!q.empty())
+        {
+            Song* s = q.front();
+            q.pop();
+            std::vector<Song*> neighbors = adjList[s];
+
+            for (auto v : neighbors)
+            {
+                if (visited.count(v->getName()) == 0) // if it has not been visited
+                {
+                    if(v->getMood() == mood) { // if mood matches (3 is happy, 0 is sad- based on a happyScore)
+                        moodMatches.push_back(v);
+                    }
+                    if(moodMatches.size() >= 5) { // only add until 5 songs are found
+                        break;
+                    }
+                    visited.insert(v->getName());
+                    q.push(v);
+                }
+            }
+
+            if(moodMatches.size() >= 5) { // only add until 5 songs are found
+                        break;
+            }
+
+        }
+
+        return moodMatches;
+    }
     
 
 

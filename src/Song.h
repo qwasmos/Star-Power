@@ -27,6 +27,7 @@ class Song {
 
     std::string getName() const;
     std::vector<std::string> getArtist() const;
+    int getMood();
 
     bool isSimilar(Song* other);
 
