@@ -63,6 +63,32 @@ int main(){
 		}
 		
 	} else if (option == 2) {
+
+		
+			
+		string artistName;
+		cout << "Please enter the name of an artist you like: " << endl;
+		std::getline(std::cin, artistName);
+		std::getline(std::cin, artistName);
+		Song* song = graph.BFSArtist(graph.adjList, artistName); 
+		if (song == nullptr) {
+			cout << "Sorry, we couldn't find that song." << endl;
+		} else {
+			cout << "Here are some songs you might like: " << endl;
+			vector<Song*> similarSongs;
+			for(int i = 0; i < 5; i++) { // only adds 5 similar songs (also might need to check if the song even has 5 similar songs)
+				similarSongs.push_back(graph.adjList[song][i]);
+			}
+			for (Song* song : similarSongs) {
+				cout << "- " << song->getName() << " By: ";
+				for(int i = 0; i < song->getArtist().size(); i++) {
+					cout << song->getArtist()[i] << " ";
+				}
+				cout << endl;
+			}
+		}
+
+
 		/*
 		string artistName;
 		cout << "Please enter the name of an artist you like: " << endl;
@@ -78,6 +104,10 @@ int main(){
 		}
 		*/
 	} else if (option == 3) {
+		std::string temp;
+		getline(std::cin,temp);
+		getline(std::cin,temp);
+		graph.getSongByArtist(graph.adjList,temp);
 		/*
 		bool mood;	// true = happy, false = sad
 		cout << "Enter 1 if you are looking for happy songs, and 2 if you are looking for sad songs: " << endl;

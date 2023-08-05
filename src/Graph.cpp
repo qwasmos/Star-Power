@@ -105,7 +105,111 @@
         }
         return nullptr;
     }
+    // This is supposed to do a BFS search but checking if the song is of the same artist IT DOES NOT WORK, NEEDS TO BE FIXED!!
+    Song* Graph::BFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist){
 
+
+
+
+    std::set<Song*> visited;
+    std::queue<Song*> q;
+
+    for (auto& iter : adjList) {
+        Song* s = iter.first;
+        bool found = false;
+        
+        for (const std::string& artistName : s->getArtist()) {
+            if (artistName == artist) {
+                found = true;
+                break;
+            }
+        }
+        
+        if (found) {
+            visited.insert(s);
+            q.push(s);
+        }
+    }
+
+    while (!q.empty()) {
+        Song* s = q.front();
+        q.pop();
+        
+        if (std::find(s->getArtist().begin(), s->getArtist().end(), artist) != s->getArtist().end()) {
+            return s;
+        }
+        
+        for (Song* v : adjList[s]) {
+            if (visited.count(v) == 0) {
+                visited.insert(v);
+                q.push(v);
+            }
+        }
+    }
+
+    return nullptr;
+
+
+
+        /*
+        std::set<Song*> visited;
+        std::queue<Song*> q;
+        auto iter = adjList.begin();
+        visited.insert(iter->first);
+        q.push(iter->first);
+        std::cout << "BFS: ";
+        while (!q.empty())
+        {
+            Song* s = q.front();
+            // std::cout << s->getName(); // probably dont need to print this
+            q.pop();
+            std::vector<Song*> neighbors = adjList[s];
+
+            for(int i = 0; i < s->getArtist().size();i++){
+                if(s->getArtist()[i]== artist){
+                    return s;
+                }
+            }
+
+            
+            
+            for (auto v : neighbors)
+            {
+
+                if (visited.count(v) == 0) // if it has not been visited
+                {
+
+                    for(int i = 0; i < v->getArtist().size();i++){
+                        if(v->getArtist()[i] == artist){
+                            return v;
+                        }
+                    }
+                   
+                    visited.insert(v);
+                    q.push(v);
+                }
+            }
+
+            // if it has no neighbors access another node
+
+        }
+
+        return nullptr; // if not found
+        */
+
+    }
+
+
+// SECOND ATTEMPT AT JUST PRINTING THE SONGS OF THE SAME ARTIST BY LOOPING OVER ENTIRE MAP, STILL DOES NOT WORK!
+void Graph::getSongByArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist){
+  for(auto iter = adjList.begin();iter!=adjList.end();iter++){
+    for(int i = 0; i < iter->second.size();i++){
+        if(iter->second[i]->getArtist()[i] == artist){
+            std::cout<<"Artist: "<<iter->second[i]->getArtist()[i]<<std::endl;
+        }
+    }
+  }
+}
     
 
 
