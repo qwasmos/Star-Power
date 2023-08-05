@@ -70,31 +70,40 @@
     }
 
 
-    void Graph::DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName)
+    Song* Graph::DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName)
     {
 
-        std::string source = "A";
+        //std::string source = "A";
         std::set<Song*> visited;
         std::stack<Song*> q;
         auto iter = adjList.begin();
         visited.insert(iter->first);
         q.push(iter->first);
-        std::cout << "BFS: ";
+        std::cout << "DFS: ";
         while (!q.empty())
         {
             Song* u = q.top();
-            std::cout << u->getName();
+            //std::cout << u->getName();
             q.pop();
             std::vector<Song*> neighbors = adjList[u];
+
+            if(u->getName() == songName){
+                return u;
+            }
+
             for (auto v : neighbors)
             {
                 if (visited.count(v) == 0)
                 {
+                    if(v->getName()== songName){
+                        return v;
+                    }
                     visited.insert(v);
                     q.push(v);
                 }
             }
         }
+        return nullptr;
     }
 
     

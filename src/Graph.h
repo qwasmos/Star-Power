@@ -14,7 +14,7 @@ class Graph{
 
     void addSong(Song* song);
     Song* BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string name);
-    void DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string name);
+    Song* DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string name);
     void printMap();
 
     
