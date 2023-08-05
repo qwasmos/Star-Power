@@ -31,6 +31,8 @@ int main(){
     cout << endl;
 
 	int option = 0;
+	int travType = 0; // traversal type
+	bool DFS = false;
 	while(option != -1) {
     
 		cout << "~~~~~~~~~~~~~~~~ MENU ~~~~~~~~~~~~~~~~" << endl;
@@ -39,6 +41,13 @@ int main(){
 		cout << "3. Songs by mood" << endl; 
 		cout << "---------- Enter -1 to Exit ----------" << endl << endl;
 
+		cout << "Would you like to use BFS or DFS? (use 1 for BFS and 0 for DFS)" << endl;
+		cin >> travType;
+		if (travType == 0) {
+			DFS = true;
+		} else {
+			DFS = false;
+		}
 		cout << "Please enter the corresponding menu option (number) based on what you are looking for: " << endl;
 		cin >> option;
 		if (option == 1) {
@@ -47,75 +56,52 @@ int main(){
 			cout << "Please enter the name of a song you like: " << endl;
 			std::getline(std::cin, songName);
 			std::getline(std::cin, songName);
-			Song* song = graph.BFS(graph.adjList, songName); 
-			if (song == nullptr) {
-				cout << "Sorry, we couldn't find that song." << endl;
-			} else {
-				cout << "Here are some songs you might like: " << endl;
-				vector<Song*> similarSongs;
-				for(int i = 0; i < 5; i++) { // only adds 5 similar songs (also might need to check if the song even has 5 similar songs)
-					similarSongs.push_back(graph.adjList[song][i]);
-				}
-				for (Song* song : similarSongs) {
-					cout << "- " << song->getName() << ", By: ";
-					for(int i = 0; i < song->getArtist().size(); i++) {
-						cout << song->getArtist()[i] << " ";
-					}
-					cout << endl;
-				}
-				cout << endl; // spacing
+
+			if(DFS) { // USING DFS TRAVERSAL
+				if (graph.DFSbySong(graph.adjList, songName) == false) {
+					cout << "Sorry, we couldn't find that song." << endl;
+				} 
+			} else { // USING BFS TRAVERSAL
+				if (graph.BFSbySong(graph.adjList, songName) == false) {
+					cout << "Sorry, we couldn't find that song." << endl;
+				} 
 			}
+			cout << endl; // spacing
 			
 		} else if (option == 2) {
-
-			
 				
 			string artistName;
-			cout << "Please enter the name of an artist you like: " << endl;
+			cout << "Please enter the name of an artist you like: " << endl << endl;
 			std::getline(std::cin, artistName);
 			std::getline(std::cin, artistName);
-			Song* song = graph.BFSArtist(graph.adjList, artistName); 
-			if (song == nullptr) {
-				cout << "Sorry, we couldn't find that artist." << endl;
-			} else {
-				cout << "Here are some songs you might like: " << endl;
-				vector<Song*> similarSongs;
-				for(int i = 0; i < 5; i++) { // only adds 5 similar songs (also might need to check if the song even has 5 similar songs)
-					similarSongs.push_back(graph.adjList[song][i]);
-				}
-				for (Song* song : similarSongs) {
-					cout << "- " << song->getName() << " By: ";
-					for(int i = 0; i < song->getArtist().size(); i++) {
-						cout << song->getArtist()[i] << " ";
-					}
-					cout << endl;
-				}
-				cout << endl; // spacing
+			
+			if(DFS) { // USING DFS TRAVERSAL
+				if (graph.DFSArtist(graph.adjList, artistName) == false) {
+					cout << "Sorry, we couldn't find that artist." << endl;
+				} 
+			} else { // USING BFS TRAVERSAL
+				if (graph.BFSArtist(graph.adjList, artistName) == false) {
+					cout << "Sorry, we couldn't find that artist." << endl;
+				} 
 			}
+			
+			cout << endl; // spacing
 
-
-			/*
-			string artistName;
-			cout << "Please enter the name of an artist you like: " << endl;
-			getline(cin, artistName);
-			vector<Song*> songs = graph.getSongsByArtist(artistName);
-			if (songs.size() == 0) {
-				cout << "Sorry, we couldn't find that artist." << endl;
-			} else {
-				cout << "Here are some songs by that artist: " << endl;
-				for (Song* song : songs) {
-					cout << song->getName() << endl;
-				}
-			}
-			*/
 		} else if (option == 3) {
-			bool mood;	// true = happy, false = sad
+			int mood = 0;	// true = happy, false = sad
 			string userMood;
-			cout << "Enter 3 if you are looking for happy songs, and 0 if you are looking for sad songs: " << endl;
+			cout << "Enter 1 if you are looking for happy songs, and 0 if you are looking for sad songs: " << endl;
 			std::getline(std::cin, userMood);
 			std::getline(std::cin, userMood);
-			mood = bool(stoi(userMood));
-			vector<Song*> songs = graph.BFSMood(graph.adjList, mood);
+			mood = stoi(userMood);
+			vector<Song*> songs;
+
+			if(DFS) {
+				songs = graph.DFSMood(graph.adjList, mood);
+			} else {
+				songs = graph.BFSMood(graph.adjList, mood);
+			}
+			
 			
 			cout << "Here are some songs with that mood: " << endl;
 			for (Song* song : songs) {

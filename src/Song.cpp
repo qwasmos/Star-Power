@@ -33,17 +33,21 @@
         return artists;
     }
 
-    int Song::getMood() {
+    int Song::getMood() { 
         // 0 happyPoints is sad
         // 3 happyPoints is happy
         int happyPoints = 0;
 
-        if(valence > 0.6) {
+        if(valence > 0.7) {
             happyPoints++;
+        } else if (valence < 0.5) {
+            happyPoints--;
         }
 
         if(energy > 0.6) {
             happyPoints++;
+        } else if (energy < 0.45) {
+            happyPoints--;
         }
 
         if(tempo >= 155 && tempo <= 200) {

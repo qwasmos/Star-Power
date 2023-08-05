@@ -27,13 +27,15 @@
         std::cout<<adjList.size()<<std::endl;
     }
     
-    Song* Graph::BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName) // if this returns a pointer to a song
+    bool Graph::BFSbySong(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName) // Returns true if found
     {
         std::set<Song*> visited;
         std::queue<Song*> q;
         auto iter = adjList.begin();
         visited.insert(iter->first);
         q.push(iter->first);
+        bool songFound = false;
+        int printed = 0;
 
         while (!q.empty())
         {
@@ -42,171 +44,177 @@
             std::vector<Song*> neighbors = adjList[s];
 
             if (s->getName() == songName) {
-                return s;
+                songFound = true;
+                std::cout << "Here are some songs you might like: " << std::endl;
             }
             
             for (auto v : neighbors)
             {
                 if (visited.count(v) == 0) // if it has not been visited
                 {
-
-                    if (v->getName() == songName) { // if name matches
-                        return v;
+                    if(songFound) {
+                        std::cout << "- " << v->getName() << ", By: "; 
+                        for(int i = 0; i < v->getArtist().size(); i++) {
+						    std::cout << v->getArtist()[i] << " ";
+					    }
+                        std::cout << std::endl;
+                        printed++;
                     }
+
+                    if(printed >= 5) {
+                        break;
+                    }
+
                     visited.insert(v);
                     q.push(v);
                 }
             }
 
+            if(printed >= 5) { // Only print 5
+                return true;
+            }
         }
 
-        return nullptr; // if not found
+        return false;
 
     }
 
 
-    Song* Graph::DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName)
+    bool Graph::DFSbySong(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string songName)
     {
-
-        //std::string source = "A";
         std::set<Song*> visited;
         std::stack<Song*> q;
         auto iter = adjList.begin();
         visited.insert(iter->first);
         q.push(iter->first);
-        std::cout << "DFS: ";
+        bool songFound = false;
+        int printed = 0;
+
         while (!q.empty())
         {
             Song* u = q.top();
-            //std::cout << u->getName();
+            if(songFound) { // Print song and artist
+                std::cout << "- " << u->getName() << ", By: "; 
+                for(int i = 0; i < u->getArtist().size(); i++) {
+                    std::cout << u->getArtist()[i] << " ";
+                }
+                std::cout << std::endl;
+                printed++;
+            }
+            if(printed >= 5) {
+                return true;
+            }
+            if (u->getName() == songName) {
+                songFound = true;
+            }
             q.pop();
             std::vector<Song*> neighbors = adjList[u];
-
-            if(u->getName() == songName){
-                return u;
-            }
 
             for (auto v : neighbors)
             {
                 if (visited.count(v) == 0)
                 {
-                    if(v->getName()== songName){
-                        return v;
-                    }
                     visited.insert(v);
                     q.push(v);
                 }
             }
         }
-        return nullptr;
+
+        return false;
     }
 
 
     // This is supposed to do a BFS search but checking if the song is of the same artist IT DOES NOT WORK, NEEDS TO BE FIXED!!
-    Song* Graph::BFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist){
-
-
-
-
-    std::set<Song*> visited;
-    std::queue<Song*> q;
-
-    for (auto& iter : adjList) {
-        Song* s = iter.first;
-        bool found = false;
-        
-        for (const std::string& artistName : s->getArtist()) {
-            if (artistName == artist) {
-                found = true;
-                break;
-            }
-        }
-        
-        if (found) {
-            visited.insert(s);
-            q.push(s);
-        }
-    }
-
-    while (!q.empty()) {
-        Song* s = q.front();
-        q.pop();
-        
-        if (std::find(s->getArtist().begin(), s->getArtist().end(), artist) != s->getArtist().end()) {
-            return s;
-        }
-        
-        for (Song* v : adjList[s]) {
-            if (visited.count(v) == 0) {
-                visited.insert(v);
-                q.push(v);
-            }
-        }
-    }
-
-    return nullptr;
-
-
-
-        /*
+    bool Graph::BFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist){
         std::set<Song*> visited;
         std::queue<Song*> q;
         auto iter = adjList.begin();
         visited.insert(iter->first);
         q.push(iter->first);
-        std::cout << "BFS: ";
+        bool artistFound = false;
+        int printed = 0;
+
         while (!q.empty())
         {
             Song* s = q.front();
-            // std::cout << s->getName(); // probably dont need to print this
             q.pop();
             std::vector<Song*> neighbors = adjList[s];
 
-            for(int i = 0; i < s->getArtist().size();i++){
-                if(s->getArtist()[i]== artist){
-                    return s;
-                }
+            if (s->getArtist()[0] == artist) {
+                artistFound = true;
+                std::cout << "Here are some songs you might like: " << std::endl;
             }
-
-            
             
             for (auto v : neighbors)
             {
-
                 if (visited.count(v) == 0) // if it has not been visited
                 {
-
-                    for(int i = 0; i < v->getArtist().size();i++){
-                        if(v->getArtist()[i] == artist){
-                            return v;
-                        }
+                    if(artistFound) {
+                        std::cout << "- " << v->getName() << ", By: "; 
+                        for(int i = 0; i < v->getArtist().size(); i++) {
+						    std::cout << v->getArtist()[i] << " ";
+					    }
+                        std::cout << std::endl;
+                        printed++;
                     }
-                   
+                    if(printed >= 5) {
+                        break;
+                    }
                     visited.insert(v);
                     q.push(v);
                 }
             }
 
-            // if it has no neighbors access another node
-
+            if(printed >= 5) { // Only print 5
+                return true;
+            }
         }
 
-        return nullptr; // if not found
-        */
+        return false;
 
     }
 
+    bool Graph::DFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist) {
+        std::set<Song*> visited;
+        std::stack<Song*> q;
+        auto iter = adjList.begin();
+        visited.insert(iter->first);
+        q.push(iter->first);
+        bool artistFound = false;
+        int printed = 0;
 
-// SECOND ATTEMPT AT JUST PRINTING THE SONGS OF THE SAME ARTIST BY LOOPING OVER ENTIRE MAP, STILL DOES NOT WORK!
-void Graph::getSongByArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist){
-  for(auto iter = adjList.begin();iter!=adjList.end();iter++){
-    for(int i = 0; i < iter->second.size();i++){
-        if(iter->second[i]->getArtist()[i] == artist){
-            std::cout<<"Artist: "<<iter->second[i]->getArtist()[i]<<std::endl;
+        while (!q.empty())
+        {
+            Song* u = q.top();
+            if(artistFound) { // Print song and artist
+                std::cout << "- " << u->getName() << ", By: "; 
+                for(int i = 0; i < u->getArtist().size(); i++) {
+                    std::cout << u->getArtist()[i] << " ";
+                }
+                std::cout << std::endl;
+                printed++;
+            }
+            if(printed >= 5) {
+                return true;
+            }
+            if (u->getArtist()[0] == artist) {
+                artistFound = true;
+            }
+            q.pop();
+            std::vector<Song*> neighbors = adjList[u];
+
+            for (auto v : neighbors)
+            {
+                if (visited.count(v) == 0)
+                {
+                    visited.insert(v);
+                    q.push(v);
+                }
+            }
         }
+
+        return false;
     }
-  }
-}
 
     std::vector<Song*> Graph::BFSMood(std::unordered_map<Song*, std::vector<Song*>>& adjList, int mood) {
         std::vector<Song*> moodMatches;
@@ -215,6 +223,12 @@ void Graph::getSongByArtist(std::unordered_map<Song*, std::vector<Song*>>& adjLi
         auto iter = adjList.begin();
         visited.insert(iter->first->getName());
         q.push(iter->first);
+        if (mood == 0) {
+            mood = -2; // Score needed to be considered sad 
+        } else {
+            mood = 3; // Score needed to be considered happy
+        }
+
         while (!q.empty())
         {
             Song* s = q.front();
@@ -225,7 +239,7 @@ void Graph::getSongByArtist(std::unordered_map<Song*, std::vector<Song*>>& adjLi
             {
                 if (visited.count(v->getName()) == 0) // if it has not been visited
                 {
-                    if(v->getMood() == mood) { // if mood matches (3 is happy, 0 is sad- based on a happyScore)
+                    if(v->getMood() == mood) { // if mood matches (3 is happy, -2 is sad- based on a happyScore)
                         moodMatches.push_back(v);
                     }
                     if(moodMatches.size() >= 5) { // only add until 5 songs are found
@@ -245,6 +259,44 @@ void Graph::getSongByArtist(std::unordered_map<Song*, std::vector<Song*>>& adjLi
         return moodMatches;
     }
     
+    std::vector<Song*> Graph::DFSMood(std::unordered_map<Song*, std::vector<Song*>>& adjList, int mood) {
+        std::vector<Song*> moodMatches;
+        std::set<std::string> visited;
+        std::stack<Song*> q;
+        auto iter = adjList.begin();
+        visited.insert(iter->first->getName());
+        q.push(iter->first);
+        if (mood == 0) {
+            mood = -2; // Score needed to be considered sad 
+        } else {
+            mood = 3; // Score needed to be considered happy
+        }
+
+        while (!q.empty())
+        {
+            Song* u = q.top();
+            if(u->getMood() == mood) { // if mood matches
+                std::cout << "current song mood: " << u->getMood() << " wanted mood: " << mood << std::endl; // TESTING PURPOSES
+                moodMatches.push_back(u);
+            }
+            if(moodMatches.size() >= 5) {
+                break;
+            }
+            q.pop();
+            std::vector<Song*> neighbors = adjList[u];
+
+            for (auto v : neighbors)
+            {
+                if (visited.count(v->getName()) == 0)
+                {
+                    visited.insert(v->getName());
+                    q.push(v);
+                }
+            }
+        }
+
+        return moodMatches;
+    }
 
 
 

@@ -13,10 +13,13 @@ class Graph{
     void addEdge(Song* song1, Song* song2);
 
     void addSong(Song* song);
-    Song* BFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string name);
-    Song* BFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist);
+    bool BFSbySong(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string name);
+    bool DFSbySong(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string name);
+    bool BFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist);
+    bool DFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist);
     std::vector<Song*> BFSMood(std::unordered_map<Song*, std::vector<Song*>>& adjList, int mood);
-    Song* DFS(std::unordered_map<Song*, std::vector<Song*>> &adjList, std::string name);
+    std::vector<Song*> DFSMood(std::unordered_map<Song*, std::vector<Song*>>& adjList, int mood);
+    
     void printMap();
 
     void getSongByArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist); 
