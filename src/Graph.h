@@ -19,10 +19,9 @@ class Graph{
     bool DFSArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist);
     std::vector<Song*> BFSMood(std::unordered_map<Song*, std::vector<Song*>>& adjList, int mood);
     std::vector<Song*> DFSMood(std::unordered_map<Song*, std::vector<Song*>>& adjList, int mood);
-    
+    // for debugging purposes
     void printMap();
 
-    void getSongByArtist(std::unordered_map<Song*, std::vector<Song*>>& adjList, std::string artist); 
     
 
 };
